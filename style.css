@@ -1,0 +1,46 @@
+.button-open,
+.button-play,
+.button-pause,
+.button-stop {
+    -fx-font-size: 14px;
+    -fx-padding: 10px 20px;
+    -fx-background-color: #4CAF50;
+    -fx-text-fill: white;
+    -fx-border-radius: 5px;
+}
+
+.button-open:hover,
+.button-play:hover,
+.button-pause:hover,
+.button-stop:hover {
+    -fx-background-color: #45a049;
+}
+
+.button-open:pressed,
+.button-play:pressed,
+.button-pause:pressed,
+.button-stop:pressed {
+    -fx-background-color: #3e8e41;
+}
+
+.title-label {
+    -fx-font-size: 24px;
+    -fx-text-fill: #333;
+    -fx-font-weight: bold;
+}
+
+/* Customize the look of the main window */
+.root {
+    -fx-background-color: #f3f3f3;
+}
+
+/* Customize the look of the media player window */
+.stage {
+    -fx-background-color: #333;
+}
+
+/* Customize the look of the media view */
+.media-view {
+    -fx-border-color: #333;
+    -fx-border-width: 2px;
+}

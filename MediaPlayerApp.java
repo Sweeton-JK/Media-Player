@@ -1,8 +1,12 @@
 import javafx.application.Application;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.layout.*;
+import javafx.scene.control.Label;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
@@ -22,10 +26,10 @@ public class MediaPlayerApp extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        openButton = createButton("Open");
-        playButton = createButton("Play");
-        pauseButton = createButton("Pause");
-        stopButton = createButton("Stop");
+        openButton = createButton("Open", "button-open");
+        playButton = createButton("Play", "button-play");
+        pauseButton = createButton("Pause", "button-pause");
+        stopButton = createButton("Stop", "button-stop");
 
         openButton.setOnAction(e -> openFile());
         playButton.setOnAction(e -> mediaPlayer.play());
@@ -36,22 +40,32 @@ public class MediaPlayerApp extends Application {
         pauseButton.setDisable(true);
         stopButton.setDisable(true);
 
-        VBox vbox = new VBox(10);
-        vbox.setPadding(new Insets(20));
-        vbox.getStyleClass().add("background");
-        vbox.getChildren().addAll(openButton, playButton, pauseButton, stopButton);
+        VBox buttonBox = new VBox(10, openButton, playButton, pauseButton, stopButton);
+        buttonBox.setAlignment(Pos.CENTER);
+        buttonBox.setPadding(new Insets(20));
 
-        Scene scene = new Scene(vbox, 400, 200);
-        scene.getStylesheets().add(getClass().getResource("styles.css").toExternalForm());
+        Label titleLabel = new Label("Fantastic Media Player");
+        titleLabel.getStyleClass().add("title-label");
+
+        HBox titleBox = new HBox(titleLabel);
+        titleBox.setAlignment(Pos.CENTER);
+        titleBox.setPadding(new Insets(20));
+
+        BorderPane mainPane = new BorderPane();
+        mainPane.setTop(titleBox);
+        mainPane.setCenter(buttonBox);
+
+        Scene scene = new Scene(mainPane, 600, 400);
+        scene.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
 
         primaryStage.setScene(scene);
-        primaryStage.setTitle("Media Player");
+        primaryStage.setTitle("Fantastic Media Player");
         primaryStage.show();
     }
 
-    private Button createButton(String text) {
+    private Button createButton(String text, String styleClass) {
         Button button = new Button(text);
-        button.getStyleClass().add("media-button");
+        button.getStyleClass().add(styleClass);
         return button;
     }
 
@@ -72,17 +86,23 @@ public class MediaPlayerApp extends Application {
                 stopButton.setDisable(false);
             });
 
-            VBox vbox = new VBox(10);
-            vbox.setPadding(new Insets(20));
-            vbox.getStyleClass().add("background");
-            vbox.getChildren().addAll(mediaView, openButton, playButton, pauseButton, stopButton);
+            BorderPane videoPane = new BorderPane();
+            videoPane.setCenter(mediaView);
 
-            Scene scene = new Scene(vbox, 600, 400);
-            scene.getStylesheets().add(getClass().getResource("styles.css").toExternalForm());
+            VBox buttonBox = new VBox(10, openButton, playButton, pauseButton, stopButton);
+            buttonBox.setAlignment(Pos.CENTER);
+            buttonBox.setPadding(new Insets(20));
+
+            BorderPane mainPane = new BorderPane();
+            mainPane.setTop(buttonBox);
+            mainPane.setCenter(videoPane);
+
+            Scene scene = new Scene(mainPane, 800, 600);
+            scene.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
 
             Stage stage = new Stage();
             stage.setScene(scene);
-            stage.setTitle("Media Player");
+            stage.setTitle("Fantastic Media Player");
             stage.show();
         }
     }
